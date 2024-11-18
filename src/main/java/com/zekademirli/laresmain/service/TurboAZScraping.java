@@ -22,8 +22,15 @@ public class TurboAZScraping {
 
                 System.out.println("Name: " + name);
                 System.out.println("Price: " + price);
-                System.out.println("Engine: " + desc.split(",")[1]);
-                System.out.println("Mile: " + desc.split(",")[2]);
+
+                String[] descParts = desc.split(",");
+                if (descParts.length > 2) {
+                    System.out.println("Engine: " + descParts[1]);
+                    System.out.println("Mile: " + descParts[2]);
+                } else {
+                    System.out.println("Engine or Mile info not available.");
+                }
+
                 System.out.println("-----------------------------------");
             }
         } catch (IOException e) {

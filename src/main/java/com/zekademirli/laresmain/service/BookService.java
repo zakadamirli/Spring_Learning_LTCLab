@@ -4,6 +4,7 @@ import com.zekademirli.laresmain.config.ModelMapperConfig;
 import com.zekademirli.laresmain.dto.BookDTO;
 import com.zekademirli.laresmain.entities.Book;
 import com.zekademirli.laresmain.repository.BookRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
@@ -16,15 +17,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
 
-    public BookService(BookRepository bookRepository, ModelMapperConfig modelMapperConfig) {
-        this.bookRepository = bookRepository;
-        this.modelMapper = modelMapperConfig.modelMapper();
-    }
 
     public List<BookDTO> getAllBooks() {
         return bookRepository.findAll()
