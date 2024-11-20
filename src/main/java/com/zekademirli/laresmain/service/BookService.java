@@ -1,6 +1,5 @@
 package com.zekademirli.laresmain.service;
 
-import com.zekademirli.laresmain.config.ModelMapperConfig;
 import com.zekademirli.laresmain.dto.BookDTO;
 import com.zekademirli.laresmain.entities.Book;
 import com.zekademirli.laresmain.repository.BookRepository;
@@ -13,7 +12,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,7 +26,7 @@ public class BookService {
         return bookRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Cacheable(value = "book", key = "#id")
@@ -46,9 +44,9 @@ public class BookService {
     }
 
     @CachePut(value = "book", key = "#id")
-    public BookDTO updateBook(Long id, BookDTO bookDTO) {
-        Book book = bookRepository.findById(id).orElseThrow();
-        modelMapper.map(bookDTO, book);
+    public BookDTO updateBook(Long id, BookDTO bookDTO) {    //BookDTO == inputBookDTO
+        Book book = bookRepository.findById(id).orElseThrow(); //existing
+        modelMapper.map(bookDTO, book); //map
         Book savedBook = bookRepository.save(book);
         return convertToDTO(savedBook);
     }
@@ -63,11 +61,11 @@ public class BookService {
 
     }
 
-    private BookDTO convertToDTO(Book book) {
+    public BookDTO convertToDTO(Book book) {
         return modelMapper.map(book, BookDTO.class);
     }
 
-    private Book convertToEntity(BookDTO bookDTO) {
+    public Book convertToEntity(BookDTO bookDTO) {
         return modelMapper.map(bookDTO, Book.class);
     }
 }

@@ -5,10 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -17,6 +14,7 @@ import java.io.Serializable;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Book implements Serializable {
 
     @Id
@@ -29,4 +27,10 @@ public class Book implements Serializable {
     @NotBlank
     private String isbn;
 
+    public Book(long l, String testTitle, String testAuthor) {
+        this.title = testTitle;
+        this.author = testAuthor;
+        this.isbn = testAuthor;
+        this.id = l;
+    }
 }
