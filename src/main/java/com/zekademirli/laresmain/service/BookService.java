@@ -4,6 +4,7 @@ import com.zekademirli.laresmain.dto.BookDTO;
 import com.zekademirli.laresmain.entities.Book;
 import com.zekademirli.laresmain.repository.BookRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
